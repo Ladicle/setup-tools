@@ -63,3 +63,7 @@ hub issue || :
 export GO_SRC=$HOME/Developments/src
 go get -u github.com/Ladicle/toggl
 go get -u golang.org/x/tools/...
+
+# よく使うやつ
+ghq get -p Ladicle/misc-scripts
+ghq get -p Ladicle/setup-tools
