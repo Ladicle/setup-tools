@@ -20,6 +20,7 @@ killall Finder
 
 # install commands using brew
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew cask install java
 brew tap sachaos/todoist
 brew install \
      aspell \
@@ -43,16 +44,17 @@ brew install \
      dep
 
 # setup dotfiles
-[ ! -d $HOME/Developments ] && mkdir $HOME/Developments
-[ ! -d $HOME/Developments/src/github.com/Ladicle ] &&\
-    mkdir -p $HOME/Developments/src/github.com/Ladicle
+export GOPATH=$HOME/Developments
+[ ! -d $GOPATH ] && mkdir $GOPATH
+[ ! -d $GOPATH/src/github.com/Ladicle ] &&\
+    mkdir -p $GOPATH/src/github.com/Ladicle
 
-if [ ! -d $HOME/Developments/src/github.com/Ladicle/dotfiles ]; then
-    cd $HOME/Developments/src/github.com/Ladicle
+if [ ! -d $GOPATH/src/github.com/Ladicle/dotfiles ]; then
+    cd $GOPATH/src/github.com/Ladicle
     git clone git@github.com:Ladicle/dotfiles.git
 fi
 
-cd $HOME/Developments/src/github.com/Ladicle/dotfiles
+cd $GOPATH/src/github.com/Ladicle/dotfiles
 bash install.sh osx
 
 # setup hub command
@@ -60,10 +62,19 @@ cd $HOME
 hub issue || :
 
 # install go commands
-export GO_SRC=$HOME/Developments/src
+go get -u github.com/motemen/ghq
 go get -u github.com/Ladicle/toggl
 go get -u golang.org/x/tools/...
 
-# よく使うやつ
+# setup fisher
+curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
+fish -c "fisher install z"
+
+# my scripts
 ghq get -p Ladicle/misc-scripts
 ghq get -p Ladicle/setup-tools
+ghq get -p Ladicle/go-snippets
+
+# setup emacs
+git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+ln -Fis $GOPATH/src/github.com/Ladicle/go-snippets $HOME/.emacs.d/private/snippets

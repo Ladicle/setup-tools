@@ -3,6 +3,7 @@
 ## Manual Playbooks
 
 1. Download apps from AppStore
+# TODO: naosu
  1. OnePassword
  2. Slack
  3. Evernote
