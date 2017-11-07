@@ -20,11 +20,8 @@ killall Finder
 
 # install commands using brew
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-brew cask install java
-brew tap sachaos/todoist
 brew install \
      aspell \
-     bazel \
      imagemagick \
      cheat \
      cmigemo \
@@ -42,7 +39,12 @@ brew install \
      jq \
      todoist \
      dep \
-     source-highlight
+     source-highlight \
+     xmlstarlet \
+     colordiff
+
+brew tap sachaos/todoist && brew install todoist
+brew tap Ladicle/toggl && brew install toggl
 
 # setup dotfiles
 export GOPATH=$HOME/Developments
@@ -53,18 +55,16 @@ export GOPATH=$HOME/Developments
 if [ ! -d $GOPATH/src/github.com/Ladicle/dotfiles ]; then
     cd $GOPATH/src/github.com/Ladicle
     git clone git@github.com:Ladicle/dotfiles.git
+else
+    cd $GOPATH/src/github.com/Ladicle/dotfiles
+    git fetch && git rebase origin master
 fi
 
 cd $GOPATH/src/github.com/Ladicle/dotfiles
 bash install.sh osx
 
-# setup hub command
-cd $HOME
-hub issue || :
-
 # install go commands
 go get -u github.com/motemen/ghq
-go get -u github.com/Ladicle/toggl
 go get -u golang.org/x/tools/...
 
 # setup fisher
@@ -79,3 +79,9 @@ ghq get -p Ladicle/go-snippets
 # setup emacs
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 ln -Fis $GOPATH/src/github.com/Ladicle/go-snippets $HOME/.emacs.d/private/snippets
+
+# setup commands
+cd $HOME
+hub issue || :
+toggl || :
+todoist || :
