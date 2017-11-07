@@ -41,7 +41,8 @@ brew install \
      hub \
      jq \
      todoist \
-     dep
+     dep \
+     source-highlight
 
 # setup dotfiles
 export GOPATH=$HOME/Developments
