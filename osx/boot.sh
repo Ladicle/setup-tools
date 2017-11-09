@@ -46,6 +46,15 @@ brew install \
 brew tap sachaos/todoist && brew install todoist
 brew tap Ladicle/toggl && brew install toggl
 
+echo; echo -n "Setup commands for ZLab? (y/n): "; read ans
+if [ $ans == 'y' ]; then
+    brew install \
+         kubernetes-cli \
+         vault \
+         stern \
+         coreutils
+fi
+
 # setup dotfiles
 export GOPATH=$HOME/Developments
 [ ! -d $GOPATH ] && mkdir $GOPATH
