@@ -75,6 +75,10 @@ bash install.sh osx
 # install go commands
 go get -u github.com/motemen/ghq
 go get -u golang.org/x/tools/...
+go get -u github.com/rogpeppe/godef
+go get -u github.com/nsf/gocode
+go get -u github.com/golang/lint/golint
+go get -u github.com/kisielk/errcheck
 
 # setup fisher
 curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
