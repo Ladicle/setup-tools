@@ -26,7 +26,6 @@ brew install \
      cheat \
      cmigemo \
      ctags \
-     emacs \
      fish \
      fzf \
      gdb \
@@ -45,6 +44,10 @@ brew install \
 
 brew tap sachaos/todoist && brew install todoist
 brew tap Ladicle/toggl && brew install toggl
+
+brew tap d12frosted/emacs-plus \
+    && brew install emacs-plus \
+    && brew linkapps emacs-plus
 
 echo; echo -n "Setup commands for ZLab? (y/n): "; read ans
 if [ $ans == 'y' ]; then
