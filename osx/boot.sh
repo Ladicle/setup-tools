@@ -55,7 +55,8 @@ if [ $ans == 'y' ]; then
          kubernetes-cli \
          vault \
          stern \
-         coreutils
+         coreutils \
+         kubectx
 fi
 
 # setup dotfiles
