@@ -95,7 +95,7 @@ ghq get -p Ladicle/go-snippets
 
 # setup emacs
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
-ln -Fis $GOPATH/src/github.com/Ladicle/go-snippets $HOME/.emacs.d/private/snippets
+ln -Fis $GOPATH/src/github.com/Ladicle/go-snippets $HOME/.emacs.d/private/snippets/go-mode
 
 # setup commands
 cd $HOME
