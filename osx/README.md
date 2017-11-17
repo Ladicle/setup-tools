@@ -9,6 +9,9 @@
     3. Evernote
     4. BetterSnapTool
     5. Todoist
+    6. Toggl
+    7. Alfred
+    8. DisplayMenu
 2. Setup OnePassword
 3. Download following apps from Safari
    1. [Karabiner](https://pqrs.org/osx/karabiner/)

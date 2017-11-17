@@ -46,6 +46,7 @@ brew install \
 
 brew tap sachaos/todoist && brew install todoist
 brew tap Ladicle/toggl && brew install toggl
+brew cask install marp
 
 echo; echo -n "Setup commands for ZLab? (y/n): "; read ans
 if [ $ans == 'y' ]; then
