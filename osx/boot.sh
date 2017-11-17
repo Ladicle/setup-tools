@@ -41,7 +41,8 @@ brew install \
      source-highlight \
      xmlstarlet \
      colordiff \
-     emacs
+     emacs \
+     global --with-sqlite3
 
 brew tap sachaos/todoist && brew install todoist
 brew tap Ladicle/toggl && brew install toggl
@@ -80,6 +81,7 @@ go get -u github.com/rogpeppe/godef
 go get -u github.com/nsf/gocode
 go get -u github.com/golang/lint/golint
 go get -u github.com/kisielk/errcheck
+go get -u github.com/juntaki/gogtags
 
 # setup fisher
 curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
