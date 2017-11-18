@@ -42,7 +42,8 @@ brew install \
      xmlstarlet \
      colordiff \
      emacs \
-     global --with-sqlite3
+     global --with-sqlite3 \
+     knqyf263/pet/pet
 
 brew tap sachaos/todoist && brew install todoist
 brew tap Ladicle/toggl && brew install toggl
@@ -87,6 +88,7 @@ go get -u github.com/juntaki/gogtags
 # setup fisher
 curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
 fish -c "fisher install z"
+fish -c "fisher install otms61/fish-pet"
 
 # my scripts
 ghq get -p Ladicle/misc-scripts
@@ -102,3 +104,12 @@ cd $HOME
 hub issue || :
 toggl || :
 todoist || :
+
+echo "generate access token (only need gist scope)"
+echo "title:  pet for $USER@(hostname)"
+open https://github.com/settings/tokens
+pet configure || :
+
+echo "paste Gist ID to pet configure"
+pet sync -u || :
+pet configure || :
