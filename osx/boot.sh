@@ -43,7 +43,8 @@ brew install \
      colordiff \
      emacs \
      global --with-sqlite3 \
-     knqyf263/pet/pet
+     knqyf263/pet/pet \
+     npm
 
 brew tap sachaos/todoist && brew install todoist
 brew tap Ladicle/toggl && brew install toggl
