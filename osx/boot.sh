@@ -85,6 +85,7 @@ go get -u github.com/nsf/gocode
 go get -u github.com/golang/lint/golint
 go get -u github.com/kisielk/errcheck
 go get -u github.com/juntaki/gogtags
+go get -u github.com/derekparker/delve/cmd/dlv
 
 # setup fisher
 curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
