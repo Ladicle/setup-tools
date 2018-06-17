@@ -1,0 +1,115 @@
+#!/bin/bash
+
+set -eu
+
+# install dependencies in apt
+sudo apt update && sudo apt upgrade
+sudo apt install \
+     git \
+     emacs \
+     fish \
+     golang \
+     tmux \
+     tig \
+     tree \
+     ctags \
+     jq \
+     silversearcher-ag \
+     curl \
+     tilix \
+     hugo
+
+# for Tmux
+sudo apt install \
+     automake \
+     libevent-dev \
+     libncurses5-dev
+# TODO install tmux
+
+# for albert
+wget -nv -O Release.key https://build.opensuse.org/projects/home:manuelschneid3r/public_key
+sudo apt-key add - < Release.key
+rm Release.key
+sudo apt update
+sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_18.04/ /' > /etc/apt/sources.list.d/home:manuelschneid3r.list"
+sudo apt-get update
+sudo apt-get install albert
+
+# Add info about setting Tilix as default terminal
+# https://github.com/gnunn1/tilix/issues/863
+sudo update-alternatives --config x-terminal-emulator
+
+# TODO: install hub
+
+# install Rust
+curl https://sh.rustup.rs -sSf | sh
+
+# setup spacemacs
+# TODO: update & remove & setup snippets
+# git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+
+# setup fisher
+curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
+fish -c "fisher install z"
+
+# setup dotfiles
+# git clone <my secret dotfiles>
+# cd <dotdir> && ./install.sh
+
+# install dependencies in github
+mkdir $HOME/Developments
+export GOPATH=$HOME/Developments
+go get -u github.com/Ladicle/git-prompt
+go get -u github.com/junegunn/fzf
+go get -u github.com/motemen/ghq
+go get -u golang.org/x/tools/...
+go get -u github.com/rogpeppe/godef
+go get -u github.com/nsf/gocode
+go get -u github.com/golang/lint/golint
+go get -u github.com/kisielk/errcheck
+go get -u github.com/juntaki/gogtags
+go get -u github.com/derekparker/delve/cmd/dlv
+
+# install nerd font
+mkdir -p ~/.local/share/fonts
+cd ~/.local/share/fonts
+wget https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Bold/complete/Fura%20Code%20Bold%20Nerd%20Font%20Complete.otf
+wget https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Light/complete/Fura%20Code%20Light%20Nerd%20Font%20Complete.otf
+wget https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Medium/complete/Fura%20Code%20Medium%20Nerd%20Font%20Complete.otf
+wget https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Regular/complete/Fura%20Code%20Regular%20Nerd%20Font%20Complete.otf
+wget https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Retina/complete/Fura%20Code%20Retina%20Nerd%20Font%20Complete.otf
+sudo fc-cache -fv
+
+# setup fisher
+curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fishrep
+fish -c "fisher install z"
+
+# setup emacs
+git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+# TODO: setup snippets
+
+
+# gnome extensions
+# - user-themes
+# - window-indicator
+sudo apt install \
+     gnome-tweak-tool \
+     hide-top-bar \
+
+
+# gnome GTK themes and gnome shell
+sudo add-apt-repository ppa:satyajit-happy/themes
+sudo apt update
+sudo apt install \
+     adapta-gtk-theme \
+     libcanberra-gtk-module \
+     lxappearance \
+     gnome-shell-extensions
+
+sudo add-apt-repository ppa:numix/ppa
+sudo apt update
+sudo apt install numix-icon-theme
+
+sudo add-apt-repository ppa:papirus/papirus
+sudo apt-get update
+sudo apt-get install papirus-icon-theme

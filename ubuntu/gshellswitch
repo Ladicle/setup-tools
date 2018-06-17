@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -eu
+
+cd /usr/share/gnome-shell
+
+if ! [[ -h gnome-shell-theme.gresource ]]; then
+    sudo mv gnome-shell-theme.gresource gnome-shell-theme.gresource.original;
+fi
+
+sudo ln -frs \
+     /usr/share/themes/Adapta-Eta/gnome-shell/gnome-shell-theme.gresource \
+     gnome-shell-theme.gresource

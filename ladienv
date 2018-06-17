@@ -1,0 +1,65 @@
+#!/bin/bash
+
+set -eu
+
+cmd=ladienv
+version=0.1.0
+
+function help(){
+    cat <<EOF
+NAME:
+  $cmd - setup ladicle's environment
+
+USAGE:
+  $cmd [option] command [arguments...]
+
+VERSION:
+  $version
+
+COMMANDS:
+  list		list supported distributions
+  install	setup ladicle's environment
+  update	update all configurations
+
+OPTIONS:
+  --help,-h	show this help message
+  --version,-v	print command version
+EOF
+}
+
+if [ $# -eq 0 ]; then
+    echo "Err: invalid argument numbers"; echo
+    help
+    exit 1
+fi
+
+while true; do
+    case "$1" in
+        -h|--help)
+            help
+            exit
+            ;;
+        -v|--version)
+            echo "$cmd - v$version"
+            exit
+            ;;
+        list)
+            echo "ubuntu, osx"
+            exit
+            ;;
+        install|update)
+            cmd=$1
+            shift
+            ;;
+        ubuntu|osx)
+            dist=$1
+            break
+            ;;
+        *)
+            echo "Err: unexpected arguments"; echo
+            help
+            exit 1
+    esac
+done
+
+./$dist/setup $cmd
