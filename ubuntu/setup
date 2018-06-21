@@ -17,14 +17,11 @@ sudo apt install \
      silversearcher-ag \
      curl \
      tilix \
-     hugo
+     hugo \
+     xsel # for pbcopy & pbpaste
 
-# for Tmux
-sudo apt install \
-     automake \
-     libevent-dev \
-     libncurses5-dev
-# TODO install tmux
+sudo apt intall npm
+sudo npm i tern -g
 
 # for albert
 wget -nv -O Release.key https://build.opensuse.org/projects/home:manuelschneid3r/public_key
@@ -88,14 +85,11 @@ fish -c "fisher install z"
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 # TODO: setup snippets
 
-
 # gnome extensions
 # - user-themes
-# - window-indicator
 sudo apt install \
      gnome-tweak-tool \
      hide-top-bar \
-
 
 # gnome GTK themes and gnome shell
 sudo add-apt-repository ppa:satyajit-happy/themes
@@ -106,15 +100,6 @@ sudo apt install \
      lxappearance \
      gnome-shell-extensions
 
-# sudo add-apt-repository ppa:numix/ppa
-# sudo apt update
-# sudo apt install numix-icon-theme
-
 sudo add-apt-repository ppa:papirus/papirus
 sudo apt-get update
 sudo apt-get install papirus-icon-theme
-
-# sudo add-apt-repository ppa:costales/folder-color
-# sudo apt-get update
-# sudo apt-get install folder-color
-# nautilus -q

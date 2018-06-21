@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# load-xkb - loads private xkb configurations
+
+set -eu
+
+xkbcomp -w0 -I/home/ladicle/.xkb /home/ladicle/.xkb/keymap/mykbd :0
