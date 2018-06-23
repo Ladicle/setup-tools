@@ -18,6 +18,7 @@ sudo apt install \
      curl \
      tilix \
      hugo \
+     xclip \
      xsel # for pbcopy & pbpaste
 
 sudo apt intall npm
@@ -103,3 +104,13 @@ sudo apt install \
 sudo add-apt-repository ppa:papirus/papirus
 sudo apt-get update
 sudo apt-get install papirus-icon-theme
+
+# touch pad gesture tool
+sudo gpasswd -a $USER input
+sudo apt install \
+     libinput-tools \
+     xdotool
+
+sudo gem install fusuma
+gsettings set org.gnome.desktop.peripherals.touchpad send-events enabled
+echo "Run Startup Application, and Register fusuma to it!"
