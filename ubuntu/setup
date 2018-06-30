@@ -2,7 +2,7 @@
 
 set -eu
 
-# install dependencies in apt
+# install basic dependencies
 sudo apt update && sudo apt upgrade
 sudo apt install \
      git \
@@ -18,48 +18,42 @@ sudo apt install \
      curl \
      tilix \
      hugo \
+     colordiff \
+     speech-dispatcher \
      xclip \
-     xsel # for pbcopy & pbpaste
+     xsel
+#
+# Setting up Shell
+# -----------------------------------------------------------
 
-sudo apt intall npm
-sudo npm i tern -g
-
-# for albert
-wget -nv -O Release.key https://build.opensuse.org/projects/home:manuelschneid3r/public_key
-sudo apt-key add - < Release.key
-rm Release.key
-sudo apt update
-sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_18.04/ /' > /etc/apt/sources.list.d/home:manuelschneid3r.list"
-sudo apt-get update
-sudo apt-get install albert
-
-# Add info about setting Tilix as default terminal
-# https://github.com/gnunn1/tilix/issues/863
-sudo update-alternatives --config x-terminal-emulator
-
-# TODO: install hub
-
-# install Rust
-curl https://sh.rustup.rs -sSf | sh
-
-# setup spacemacs
-# TODO: update & remove & setup snippets
-# git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
-
-# setup fisher
-curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
+curl -Lo ~/.config/fish/functions/fisher.fish \
+     --create-dirs https://git.io/fishrep
 fish -c "fisher install z"
 
-# setup dotfiles
-# git clone <my secret dotfiles>
-# cd <dotdir> && ./install.sh
-
-# install dependencies in github
 mkdir $HOME/Developments
 export GOPATH=$HOME/Developments
-go get -u github.com/Ladicle/git-prompt
+
 go get -u github.com/junegunn/fzf
 go get -u github.com/motemen/ghq
+go get -u github.com/Ladicle/git-prompt
+
+ghq get -p github.com/Ladicle/dotfiles
+cd $GOPATH/bin/src/github.com/Ladicle/dotfiles
+./install
+
+wget https://github.com/github/hub/releases/download/v2.4.0/hub-linux-amd64-2.4.0.tgz
+tar zxvf hub-linux-amd64-2.4.0.tgz
+mv hub-linux-amd64-2.4.0/hub /usr/local/bin
+rm hub-linux-amd64-2.4.0.tgz
+rm -rf hub-linux-amd64-2.4.0
+
+#
+# Setting up Emacs
+# TODO: link private snippets
+# -----------------------------------------------------------
+
+git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+
 go get -u golang.org/x/tools/...
 go get -u github.com/rogpeppe/godef
 go get -u github.com/nsf/gocode
@@ -68,7 +62,39 @@ go get -u github.com/kisielk/errcheck
 go get -u github.com/juntaki/gogtags
 go get -u github.com/derekparker/delve/cmd/dlv
 
-# install nerd font
+sudo apt intall npm
+sudo npm i tern -g
+
+curl https://sh.rustup.rs -sSf | sh
+
+#
+# install Albert
+# -----------------------------------------------------------
+
+wget -nv -O Release.key https://build.opensuse.org/projects/home:manuelschneid3r/public_key
+sudo apt-key add - < Release.key
+rm Release.key
+sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_18.04/ /' > /etc/apt/sources.list.d/home:manuelschneid3r.list"
+sudo apt update && sudo apt-get install albert
+
+#
+# gnome GTK themes, gnome shell and fonts
+# TODO: user-themes
+# -----------------------------------------------------------
+
+sudo add-apt-repository ppa:satyajit-happy/themes
+sudo add-apt-repository ppa:papirus/papirus
+sudo apt update
+sudo apt install \
+     adapta-gtk-theme \
+     papirus-icon-theme \
+     libcanberra-gtk-module \
+     lxappearance \
+     gnome-shell-extensions \
+     gnome-tweak-tool \
+     hide-top-bar
+
+# Nerd fonts
 mkdir -p ~/.local/share/fonts
 cd ~/.local/share/fonts
 wget https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Bold/complete/Fura%20Code%20Bold%20Nerd%20Font%20Complete.otf
@@ -77,33 +103,57 @@ wget https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/M
 wget https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Regular/complete/Fura%20Code%20Regular%20Nerd%20Font%20Complete.otf
 wget https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Retina/complete/Fura%20Code%20Retina%20Nerd%20Font%20Complete.otf
 sudo fc-cache -fv
+#
+# change default input mode of mozc from direct to HIRAGANA
+# ref; https://github.com/google/mozc/issues/381
+# -----------------------------------------------------------
 
-# setup fisher
-curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fishrep
-fish -c "fisher install z"
+# build-dep could not use in default
+sudo su -c "grep '^deb ' /etc/apt/sources.list |\
+     sed 's/^deb/deb-src/g' > /etc/apt/sources.list.d/deb-src.list"
 
-# setup emacs
-git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
-# TODO: setup snippets
-
-# gnome extensions
-# - user-themes
-sudo apt install \
-     gnome-tweak-tool \
-     hide-top-bar \
-
-# gnome GTK themes and gnome shell
-sudo add-apt-repository ppa:satyajit-happy/themes
 sudo apt update
 sudo apt install \
-     adapta-gtk-theme \
-     libcanberra-gtk-module \
-     lxappearance \
-     gnome-shell-extensions
+     quilt
+     build-essential \
+     devscripts
+sudo apt build-dep ibus-mozc
 
-sudo add-apt-repository ppa:papirus/papirus
-sudo apt-get update
-sudo apt-get install papirus-icon-theme
+mkdir -p $GOPATH/src/apt/mozc
+cd $GOPATH/src/apt/mozc
+apt source ibus-mozc
+
+cd mozc-2.20.2673.102+dfsg/
+dquilt new kActivateOnLaunch.patch
+dquilt add ./mozc-2.20.2673.102+dfsg/src/unix/ibus/property_handler.cc
+emacs -nw ./mozc-2.20.2673.102+dfsg/src/unix/ibus/property_handler.cc
+dquilt refresh
+dch -v 2.20.2673.102+dfsg-hpatch
+dpkg-buildpackage -us -uc
+
+sudo dpkg -i ../mozc*.deb ../ibus-mozc*.deb
+
+echo 'xkbcomp -w0 -I$HOME/.xkb $HOME/.xkb/keymap/mykbd $DISPLAY' >> $HOME/.xinputrc
+
+#
+# setup magic trackpad2
+# apply patch to the firmware and support multi-finger gesture
+# -----------------------------------------------------------
+sudo apt install \
+     ruby \
+     ruby-dev \
+     rubygems \
+     build-essential
+
+sudo gem install --no-ri --no-rdoc fpm
+
+# build patch and install it
+ghq get -p rozza/magictrackpad2-dkms
+cd $GOPATH/github.com/rozza/magictrackpad2-dkms
+make
+
+sudo apt instal dkms
+sudo dpkg -i build/magictrackpad2-dkms_1.1.0_all.deb
 
 # touch pad gesture tool
 sudo gpasswd -a $USER input
@@ -113,4 +163,3 @@ sudo apt install \
 
 sudo gem install fusuma
 gsettings set org.gnome.desktop.peripherals.touchpad send-events enabled
-echo "Run Startup Application, and Register fusuma to it!"
