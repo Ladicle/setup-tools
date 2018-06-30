@@ -133,8 +133,6 @@ dpkg-buildpackage -us -uc
 
 sudo dpkg -i ../mozc*.deb ../ibus-mozc*.deb
 
-echo 'xkbcomp -w0 -I$HOME/.xkb $HOME/.xkb/keymap/mykbd $DISPLAY' >> $HOME/.xinputrc
-
 #
 # setup magic trackpad2
 # apply patch to the firmware and support multi-finger gesture
