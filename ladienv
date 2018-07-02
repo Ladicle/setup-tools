@@ -44,14 +44,15 @@ while true; do
             exit
             ;;
         list)
-            echo "ubuntu, osx"
+            echo "- linux"
+            echo "- darwin"
             exit
             ;;
         install|update)
             cmd=$1
             shift
             ;;
-        ubuntu|osx)
+        linux|darwin)
             dist=$1
             break
             ;;
