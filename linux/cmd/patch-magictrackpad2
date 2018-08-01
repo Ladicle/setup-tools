@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -ex
+
+sudo apt install -y \
+     ruby \
+     ruby-dev \
+     rubygems \
+     build-essential \
+     dkms
+
+sudo gem install --no-ri --no-rdoc fpm
+
+path=$HOME/Developments/src/github.com/rozza/magictrackpad2-dkms
+if [ ! -e $path ]; then
+    git clone https://github.com/rozza/magictrackpad2-dkms.git
+fi
+
+cd $path
+git fetch --prune
+git reset --hard origin/master
+
+sudo dpkg -i build/magictrackpad2-dkms_1.1.0_all.deb
