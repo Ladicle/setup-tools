@@ -21,8 +21,9 @@ sudo apt install \
      colordiff \
      speech-dispatcher \
      xclip \
-     xsel
-#
+     xsel \
+     wmctrl
+
 # Setting up Shell
 # -----------------------------------------------------------
 
@@ -36,6 +37,11 @@ export GOPATH=$HOME/Developments
 go get -u github.com/junegunn/fzf
 go get -u github.com/motemen/ghq
 go get -u github.com/Ladicle/git-prompt
+
+ghq get -p github.com/Ladicle/dotfiles
+cd $GOPATH/bin/src/github.com/k0kubun/xremap
+make
+sudo make install
 
 ghq get -p github.com/Ladicle/dotfiles
 cd $GOPATH/bin/src/github.com/Ladicle/dotfiles
