@@ -22,7 +22,12 @@ sudo apt install \
      speech-dispatcher \
      xclip \
      xsel \
-     wmctrl
+     wmctrl \
+     xvnc4viewer
+
+sudo add-apt-repository ppa:hluk/copyq
+sudo apt update
+sudo apt install copyq
 
 # Setting up Shell
 # -----------------------------------------------------------
@@ -37,6 +42,7 @@ export GOPATH=$HOME/Developments
 go get -u github.com/junegunn/fzf
 go get -u github.com/motemen/ghq
 go get -u github.com/Ladicle/git-prompt
+go get -u github.com/k0kubun/xremap
 
 ghq get -p github.com/Ladicle/dotfiles
 cd $GOPATH/bin/src/github.com/k0kubun/xremap
