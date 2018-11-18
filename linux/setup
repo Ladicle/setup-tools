@@ -4,7 +4,7 @@ set -eu
 
 # install basic dependencies
 sudo apt update && sudo apt upgrade
-sudo apt install \
+sudo apt install -y \
      git \
      emacs \
      fish \
@@ -23,7 +23,10 @@ sudo apt install \
      xclip \
      xsel \
      wmctrl \
-     xvnc4viewer
+     xvnc4viewer \
+     elpa-flycheck \
+     flycheck-doc \
+     zeal
 
 sudo add-apt-repository ppa:hluk/copyq
 sudo apt update
@@ -73,6 +76,13 @@ go get -u github.com/golang/lint/golint
 go get -u github.com/kisielk/errcheck
 go get -u github.com/juntaki/gogtags
 go get -u github.com/derekparker/delve/cmd/dlv
+
+go get -u golang.org/x/tools/cmd/guru
+go get -u golang.org/x/tools/cmd/gorename
+go get -u golang.org/x/tools/cmd/goimports
+go get -u github.com/alecthomas/gometalinter
+
+gomelinter -ui
 
 sudo apt intall npm
 sudo npm i tern -g
