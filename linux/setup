@@ -71,7 +71,7 @@ git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
 go get -u golang.org/x/tools/...
 go get -u github.com/rogpeppe/godef
-go get -u github.com/nsf/gocode
+go get -u github.com/mdempsky/gocode
 go get -u github.com/golang/lint/golint
 go get -u github.com/kisielk/errcheck
 go get -u github.com/juntaki/gogtags
@@ -83,6 +83,9 @@ go get -u golang.org/x/tools/cmd/goimports
 go get -u github.com/alecthomas/gometalinter
 
 gomelinter -ui
+
+wget -O - -q https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s v1.12.2
+
 
 sudo apt intall npm
 sudo npm i tern -g
