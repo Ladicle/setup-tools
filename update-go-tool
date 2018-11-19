@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# update-go-tool - Update or install golang tools
+
+set -eu
+
+version=0.1.0
+
+function usage() {
+    echo "Usage: update-go-tool - Update or install golang tools"
+    exit 0
+}
+
+if [ $# -ne 0 ]; then
+    while true; do
+        case "$1" in
+            -v|--version)
+                echo $version
+                exit 0
+                ;;
+            -h|--help)
+                usage
+                ;;
+        esac
+    done
+fi
+
+go get -u golang.org/x/tools/...
+go get -u github.com/rogpeppe/godef
+go get -u github.com/stamblerre/gocode
+go get -u github.com/golang/lint/golint
+go get -u github.com/kisielk/errcheck
+go get -u github.com/juntaki/gogtags
+go get -u github.com/derekparker/delve/cmd/dlv
