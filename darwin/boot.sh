@@ -44,7 +44,8 @@ brew install \
      emacs \
      global --with-sqlite3 \
      knqyf263/pet/pet \
-     npm
+     npm \
+     direnv
 
 brew tap sachaos/todoist && brew install todoist
 brew tap Ladicle/toggl && brew install toggl
