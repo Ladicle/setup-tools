@@ -117,3 +117,6 @@ pet configure || :
 echo "paste Gist ID to pet configure"
 pet sync -u || :
 pet configure || :
+
+# SKK
+gem install google-ime-skk
